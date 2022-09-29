@@ -132,7 +132,7 @@ def main():
                         if(i==j):
                             inv[i,j]=1
 
-                for i in range(0,len(a)):
+                for i in range(0,len(a)-1):
                     if(a[i,i] == 0 and a[i+1,i] != 0):
                         mat = a[i,:].copy()
                         matinv = inv[i,:].copy()
