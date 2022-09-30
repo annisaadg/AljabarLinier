@@ -1,4 +1,3 @@
-import numpy as np
 import modulematrix as mm
 
 
@@ -7,7 +6,7 @@ def main():
     Matrix Math Application main
     """
     # Menu
-    print('*****Welcome to the Python Matrix Application!*****')
+    print('\n*****Welcome to the Python Matrix Application!*****')
     selection1 = str(input('\nDo you want to use this Matrix Operation Calculator?\n'
                            'Enter Y for Yes or N for No:\n')).upper().strip()
 
@@ -17,40 +16,32 @@ def main():
         # Answer is Y
         if selection1 == 'Y':
 
-            selection = str(input('CHOOSE ONE! \n'
+            selection = str(input('\nCHOOSE ONE! \n'
                                    'a. Two Matrix Operation\n'
                                    'b. Determinant\n'
                                    'c. Inverse Matrix\n'
                                    'd. Transpose Matrix\n'
-                                   'e. Upper Triangular Matrix\n'
-                                   'f. Lower Triangular Matrix\n'
-                                   'g. SPL using Cofactor\n'
-                                   'h. SPL using Cramer\n'
-                                   'i. SPL using OBE\n'))
+                                   'e. SPL using OBE (Gauss-Jordan)\n'))
 
             # Invalid selection2
             while selection not in ['a', 'b', 'c', 'd', 'e']:
-                print('You must enter a, b, c, d, e, f, g, h or i. Please try again.')
+                print('You must enter a, b, c, d, or e. Please try again.')
                 selection = str(input('CHOOSE ONE! \n'
                                    'a. Two Matrix Operation\n'
                                    'b. Determinant\n'
                                    'c. Inverse Matrix\n'
                                    'd. Transpose Matrix\n'
-                                   'e. Upper Triangular Matrix\n'
-                                   'f. Lower Triangular Matrix\n'
-                                   'g. SPL using Cofactor\n'
-                                   'h. SPL using Cramer\n'
-                                   'i. SPL using OBE\n'))
+                                   'e. SPL using OBE\n'))
 
             # if selection is a
             if selection == 'a':
-                size = int(input('Enter matrix size: '))
+                size = int(input('\nEnter matrix size: '))
                 matrix1 = mm.inmatrix1(size)
-                print('Your first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
+                print('\nYour first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
 
-                print("Enter your second matrix\n")
+                print("Enter your second matrix")
                 matrix2 = mm.inmatrix2(size)
-                print('Your first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix2))
+                print('\nYour second ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix2))
 
                 # operation for selection a
                 selection2 = str(input('Select a Matrix Operation from the list below:\n'
@@ -94,39 +85,43 @@ def main():
 
             # if selection is b
             elif selection == 'b':
-                size = int(input('Enter matrix size: '))
+                size = int(input('\nEnter matrix size: '))
                 matrix1 = mm.inmatrix1(size)
-                print('Your first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
-                print("\nDeterminant of given matrix:")
+                print('\nYour first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
+                print("Determinant of given matrix:")
                 det = mm.detmatrix(matrix1)
                 print(det)
 
 
             # if selection is c
             elif selection == 'c':
-                size = int(input('Enter matrix size: '))
+                size = int(input('\nEnter matrix size: '))
                 matrix1 = mm.inmatrix1(size)
                 det = mm.detmatrix(matrix1)
                 if det == 0:
-                    print("There is no inverse because the determinant is 0\n")
+                    print("\nThere is no inverse because the determinant is 0\n")
                 else :
-                    print("\nEnter the matrix in the format such that each row is in\n"
-                        "different line and each element in a row is separated by\n"
-                        "a space.\n")
-                    print("The Invers of Given Matrix is:\n")
-                    print(mm.invmatrix(size))
+                    print("\nThe Invers of Given Matrix is:\n")
+                    print(mm.invmatrix(matrix1))
 
 
             # if selection is d
             elif selection == 'd':
-                size = int(input('Enter matrix size: '))
+                size = int(input('\nEnter matrix size: '))
                 matrix1 = mm.inmatrix1(size)
-                print('Your first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
+                print('\nYour first ', size, 'x',size, ' Matrix is:\n{}\n'.format(matrix1))
                 print('\nThe Transpose is:')
                 print(mm.transmatrix(matrix1))
 
             
             # if selection id e
+            elif selection == 'e':
+                size = int(input('\nEnter matrix size: '))
+                coefficients = mm.inmatrix1(size)
+                print('\nEnter the right hanad side matrix: ')
+                right_hand_side = mm.right_hand(1, size)
+                result = mm.gauss_jordan(coefficients, right_hand_side, 2)
+                print(result)
 
 
             selection1 = str(input('\nDo you want to play the Matrix Game?\n'

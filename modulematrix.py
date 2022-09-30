@@ -37,7 +37,7 @@ def subsmatrix(matrix1,matrix2):
 
 def multiplymatrix(matrix1,matrix2):
     multmatrix = np.matmul(matrix1, matrix2)
-    return mulmatrix
+    return multmatrix
 
 def elmultiplymatrix(matrix1,matrix2):
     elmultmatrix = matrix1 * matrix2
@@ -50,11 +50,7 @@ def detmatrix(matrix):
 def transmatrix(matrix):
     return matrix.T
 
-def invmatrix(size):
-    matrix1list = np.zeros((size,size))
-    for i in range(size):
-        matrix1list[i] = [int(j) for j in input().split()]
-        a = np.array(matrix1list).reshape(size, size)
+def invmatrix(a):
 
     inv = np.zeros(shape=(len(a),len(a)))
     for i in range(0,len(inv)):
@@ -90,3 +86,37 @@ def invmatrix(size):
                     a[j,:] = a[j,:] - a[j,i]*a[i,:]/a[i,i]
 
     return inv
+
+def gauss_jordan(x, y, verbose=0):
+    m, n = x.shape
+    augmented_mat = np.zeros(shape=(m, n + 1))
+    augmented_mat[:m, :n] = x
+    augmented_mat[:, m] = y
+    np.set_printoptions(precision=2, suppress=True)
+    if verbose > 0:
+        print('# Original augmented matrix')
+        print(augmented_mat)
+    outer_loop = [[0, m - 1, 1], [m - 1, 0, -1]]
+    for d in range(2):
+        for i in range(outer_loop[d][0], outer_loop[d][1], outer_loop[d][2]):
+            inner_loop = [[i + 1, m, 1], [i - 1, -1, -1]]
+            for j in range(inner_loop[d][0], inner_loop[d][1], inner_loop[d][2]):
+                k = (-1) * augmented_mat[j, i] / augmented_mat[i, i]
+                temp_row = augmented_mat[i, :] * k
+                if verbose > 1:
+                    print('# Use line %2i for line %2i' % (i + 1, j + 1))
+                    print('k=%.2f' % k, '*', augmented_mat[i, :], '=', temp_row)
+                augmented_mat[j, :] = augmented_mat[j, :] + temp_row
+                if verbose > 1:
+                    print(augmented_mat)
+    for i in range(0, m):
+        augmented_mat[i, :] = augmented_mat[i, :] / augmented_mat[i, i]
+    if verbose > 0:
+        print('# Normalize the rows')
+        print(augmented_mat)
+    return augmented_mat[:, n]
+
+def right_hand(x,y):
+    entries = list(map(int, input().split()))
+    right = np.array(entries).reshape(x, y)
+    return right
